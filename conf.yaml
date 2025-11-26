@@ -1,0 +1,44 @@
+source:
+  path: "/home/GTiazara/Documents/workspace/get_experience_project/geo_dataset_maker/data/point.shp"
+  id_column: "id"
+  label_column: "label_int"
+  annoted_object_column: "geometry"
+
+# Multiple modalities configuration
+# Each modality can have its own configuration and output settings
+modalities:
+  - name: "google_maps"
+    type: "tms"
+    bbox_size: 0.001  # Size in degrees (approximately 111m per 0.001 degree)
+    zoom_level: 18  # Zoom level for tile requests
+    tile_server: "google"  # Tile server: 'google', 'osm', or custom URL template
+    # output:  # Optional: modality-specific output config (overrides global)
+    #   format: "tif"
+    #   dir: "output/google_maps"
+    #   crs: "EPSG:4326"
+    #   compress: "lzw"
+  
+  - name: "openstreetmap"
+    type: "tms"
+    bbox_size: 0.001
+    zoom_level: 18
+    tile_server: "osm"
+    # output:
+    #   format: "tif"
+    #   dir: "output/openstreetmap"
+    #   crs: "EPSG:4326"
+    #   compress: "lzw"
+
+# Global output configuration (used if modality doesn't specify its own)
+output:
+  format: "tif"  # Output format: 'tif' or 'hdf5'
+  dir: "output"  # Directory to save output files
+  crs: "EPSG:4326"  # Coordinate reference system (for TIF format)
+  compress: "lzw"  # Compression method (for TIF format)
+
+# Alternative: Single modality (backward compatibility)
+# modality:
+#   bbox_size: 0.001
+#   zoom_level: 18
+#   tile_server: "google"
+
