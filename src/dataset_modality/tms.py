@@ -71,7 +71,6 @@ class TMSModality:
         maxx = point.x + half_size
         miny = point.y - half_size
         maxy = point.y + half_size
-        print(f"Bounding box: {minx}, {miny}, {maxx}, {maxy}")
         return (minx, miny, maxx, maxy)
     
     def get_tiles_for_bbox(self, bbox: Tuple[float, float, float, float]) -> List[mercantile.Tile]:
@@ -86,7 +85,6 @@ class TMSModality:
         """
         minx, miny, maxx, maxy = bbox
         tiles = list(mercantile.tiles(minx, miny, maxx, maxy, zooms=self.zoom_level))
-        print(f"Tiles: {tiles}")
         return tiles
     
     def download_tile(self, tile: mercantile.Tile) -> Image.Image:

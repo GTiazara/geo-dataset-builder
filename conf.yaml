@@ -1,5 +1,5 @@
 source:
-  path: "/home/GTiazara/Documents/workspace/get_experience_project/geo_dataset_maker/data/point.shp"
+  path: "/home/GTiazara/Documents/workspace/get_experience_project/geo-dataset-builder/data/point.shp"
   id_column: "id"
   label_column: "label_int"
   annoted_object_column: "geometry"
@@ -9,7 +9,7 @@ source:
 modalities:
   - name: "google_maps"
     type: "tms"
-    bbox_size: 0.001  # Size in degrees (approximately 111m per 0.001 degree)
+    bbox_size: 0.0055749 #0.001  # Size in degrees (approximately 111m per 0.001 degree)
     zoom_level: 18  # Zoom level for tile requests
     tile_server: "google"  # Tile server: 'google', 'osm', or custom URL template
     # output:  # Optional: modality-specific output config (overrides global)
@@ -18,11 +18,11 @@ modalities:
     #   crs: "EPSG:4326"
     #   compress: "lzw"
   
-  - name: "openstreetmap"
-    type: "tms"
-    bbox_size: 0.001
-    zoom_level: 18
-    tile_server: "osm"
+  # - name: "openstreetmap"
+  #   type: "tms"
+  #   bbox_size: 0.001
+  #   zoom_level: 18
+  #   tile_server: "osm"
     # output:
     #   format: "tif"
     #   dir: "output/openstreetmap"
