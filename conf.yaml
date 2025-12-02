@@ -1,5 +1,5 @@
 source:
-  path: "/home/GTiazara/Documents/workspace/get_experience_project/geo-dataset-builder/data/point.shp"
+  path: "C:/Users/tiaza/Documents/perso/personal_project/qgis/avion/data/airport.shp"
   id_column: "id"
   label_column: "label_int"
   annoted_object_column: "geometry"
@@ -9,7 +9,7 @@ source:
 modalities:
   - name: "google_maps"
     type: "tms"
-    bbox_size: 0.0055749 #0.001  # Size in degrees (approximately 111m per 0.001 degree)
+    bbox_size: 0.0055749 # 0.0055749 #0.001  # Size in degrees (approximately 111m per 0.001 degree)
     zoom_level: 18  # Zoom level for tile requests
     tile_server: "google"  # Tile server: 'google', 'osm', or custom URL template
     # output:  # Optional: modality-specific output config (overrides global)
@@ -42,3 +42,46 @@ output:
 #   zoom_level: 18
 #   tile_server: "google"
 
+batch_size: 100
+num_workers: 1
+
+
+# Grid generation mode (alternative to source file)
+# Uncomment and configure to generate a grid of points instead of loading from file
+# grid:
+#   bbox: [minx, miny, maxx, maxy]  # Bounding box in degrees (optional if country polygon provided)
+#   spacing: 0.01  # Spacing between grid points in degrees (approximately 1110m per 0.01 degree)
+#   start_id: 0  # Starting ID for generated points (optional, default: 0)
+#   start_label: 0  # Label for all generated points (optional, default: 0)
+#   incremental: true  # Process points one by one (optional, default: false)
+#   # Country polygon filtering (optional - only generate points within country boundary):
+#   # When using country polygon, bbox is automatically calculated from the polygon
+#   # This ensures all islands and territories are included
+#   country_polygon_path: "path/to/countries.shp"  # Path to country polygon shapefile
+#   country_filter_column: "NAME"  # Column name to filter by (e.g., "NAME", "ISO_A3", "ISO_A2")
+#   country_filter_value: "France"  # Value to filter by (e.g., "France", "FRA", "FR")
+#
+# Example 1: Simple grid without country filter (bbox required)
+# grid:
+#   bbox: [2.0, 48.5, 2.5, 49.0]  # Paris region
+#   spacing: 0.01  # ~1.1km spacing
+#   incremental: true
+#
+# Example 2: Grid with country polygon filter - bbox calculated automatically (RECOMMENDED)
+grid:
+  spacing: 0.0050749   # ~11km spacing
+  incremental: true
+  country_polygon_path: "C:/Users/tiaza/Downloads/country_shapes/country_shapes.shp"  # Path to your country shapefile
+  country_filter_column: "Country"  # Column containing country names
+  country_filter_value: "France"  # Filter for France only
+#   # bbox is automatically calculated from the country polygon
+#   # This ensures all islands and territories (e.g., Corsica, overseas territories) are included
+#
+# Example 3: Grid with country polygon and explicit bbox (bbox will be overridden by polygon bbox)
+# grid:
+#   bbox: [-5.0, 41.0, 9.0, 51.0]  # Optional: will be replaced by polygon bbox
+#   spacing: 0.1
+#   incremental: true
+#   country_polygon_path: "data/countries.shp"
+#   country_filter_column: "ISO_A3"  # ISO 3-letter code column
+#   country_filter_value: "FRA"  # France ISO co
