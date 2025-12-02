@@ -1,0 +1,48 @@
+# Example configuration for grid generation mode
+# This configuration generates a grid of points covering a geographic area
+# and processes each point to create images
+
+# Grid configuration (replaces 'source' when using grid mode)
+grid:
+  # Bounding box: [minx, miny, maxx, maxy] in degrees (longitude, latitude)
+  # Example: Paris region
+  bbox: [2.0, 48.5, 2.5, 49.0]
+  
+  # Spacing between grid points in degrees
+  # 0.01 degrees ≈ 1.1 km at equator
+  # 0.001 degrees ≈ 111 m at equator
+  spacing: 0.01
+  
+  # Starting ID for generated points (optional, default: 0)
+  start_id: 0
+  
+  # Label for all generated points (optional, default: 0)
+  start_label: 0
+  
+  # Incremental processing: process points one by one (optional, default: false)
+  # When true, processes each point immediately after generation
+  # When false, generates all points first, then processes them in batch
+  incremental: true
+  
+  # Country polygon filtering (optional - only generate points within country boundary)
+  # Uncomment and configure to filter grid points to only those within a specific country
+  # country_polygon_path: "data/countries.shp"  # Path to country polygon shapefile
+  # country_filter_column: "NAME"  # Column name to filter by (e.g., "NAME", "ISO_A3", "ISO_A2")
+  # country_filter_value: "France"  # Value to filter by (e.g., "France", "FRA", "FR")
+
+# Multiple modalities configuration
+# Each modality will be applied to each grid point
+modalities:
+  - name: "google_maps"
+    type: "tms"
+    bbox_size: 0.025749  # Size in degrees (for 4800x4800 pixels at zoom 18)
+    zoom_level: 18
+    tile_server: "google"
+
+# Global output configuration
+output:
+  format: "tif"  # Output format: 'tif' or 'hdf5'
+  dir: "output"  # Directory to save output files
+  crs: "EPSG:4326"
+  compress: "lzw"
+
